@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- <meta name="viewport" content="viewport-fit=cover" /> -->
+    <link rel="icon" type="image/svg+xml" href="/fav.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <div class="flex flex-col items-center text-neutral-content">
+    <!-- desktop navbar -->
+    <div class="md:navbar sticky top-0 bg-base-100 z-10 hidden">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">Marco Preuss</a>
+      </div>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1 gap-1">
+          <li>
+            <a
+              class=`text-accent ${title === "about" ? "active" : ""}`
+              href="/"
+            >
+              about</a
+            >
+          </li>
+          <li>
+            <a class=`text-accent ${title === "cv" ? "active" : ""}` href="/cv">
+              cv</a
+            >
+          </li>
+          <li>
+            <a
+              class=`text-accent ${title === "projects" ? "active" : ""}`
+              href="/projects"
+            >
+              stuff</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- content -->
+    <slot />
+    <!-- mobile navbar -->
+    <div class="btm-nav flex md:hidden z-10">
+      <a class=`text-accent ${title === "about" ? "active" : ""}` href="/">
+        about</a
+      >
+      <a class=`text-accent ${title === "cv" ? "active" : ""}` href="/cv">
+        cv</a
+      >
+      <a
+        class=`text-accent ${title === "projects" ? "active" : ""}`
+        href="/projects"
+      >
+        projects</a
+      >
+    </div>
+  </div>
+
+  <style is:global>
+    html {
+      background-size: cover;
+      animation-name: backgroundColorChange;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes backgroundColorChange {
+      from {
+        background-color: black;
+      }
+      to {
+        background-color: #0e1118;
+      }
+    }
+  </style>
+
+
+</html>
